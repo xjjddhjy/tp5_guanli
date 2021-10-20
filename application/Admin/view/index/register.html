@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台</title>
+  <link rel="stylesheet" type="text/css" href="__CSS__/login.css">
+</head>
+
+<body>
+  <div id="wrapper" class="login-page">
+    <div id="login_form" class="form">
+      <!-- class=register-form -->
+      <form class=" login-form" method="POST">
+        <input type="text" name="username" placeholder="用户名" value="admin" id="r_user_name" />
+        <input type="password" name="password" placeholder="密码" class="r_password" id="password" />
+        <input type="password" name="password" placeholder="再输入密码" class="r_password" id="pwd" />
+        <!-- <input type="text" placeholder="电子邮件" id="r_emial" /> -->
+        <button id="create">创建账户</button>
+        <p class="message">已经有了一个账户? <a href="{:url('admin/loreg/login')}">立刻登录</a></p>
+        <!-- <div>{:captcha_img()}</div> -->
+        <input type="text" name="captcha" placeholder="输入验证码" value="admin" id="captcha" />
+        <div ><img class="captcha_img" src="{:captcha_src()}" alt="captcha" /></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="__JS__/jquery.min.js"></script>
+  <!-- <script src="__LIB__/layui/layui.js"></script> -->
+  <script type="text/javascript">
+    $('.captcha_img').click(function () {
+      $(this).attr('src', "{:captcha_src()}")
+    })
+    layui.use('layui', function () {
+      let layer = layui.layer;
+    })
+    $('#pwd').blur(function () {
+      if ($(this).val() != $('#password').val()) {
+        layer.msg('111')
+      }
+    })
+    $('#create').click(function () {
+      let username = $('#username').val();
+      let password = $('#password').val();
+      let pwd = $('#pwd').val();
+      let captcha = $('#captcha').val();
+      if (username == '') {
+        layer.msg('用户名不能为空')
+        return false
+      }
+      if (password == '') {
+        layer.msg('密码不能为空')
+        return false
+      }
+      if (captcha == '') {
+        layer.msg('验证码不能为空')
+        return false
+      }
+      if (pwd == '') {
+        layer.msg('确认密码不能为空');
+        return false;
+      }
+    })
+  </script>
+</body>
+
+</html>
